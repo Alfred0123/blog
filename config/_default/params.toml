@@ -18,7 +18,7 @@ subtitle = "오늘보다 나은 내일"
 [sidebar.avatar]
 enabled = true
 local = true
-src = "img/avatar.png"
+src = "img/avatar.jpeg"
 
 [article]
 math = false
