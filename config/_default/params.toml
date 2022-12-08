@@ -4,7 +4,7 @@ mainSections = ["post"]
 rssFullContent = true
 
 [footer]
-since = 2020
+# since = 2020
 customText = ""
 
 [dateFormat]
@@ -14,15 +14,17 @@ lastUpdated = "Jan 02, 2006 15:04 MST"
 [sidebar]
 # emoji = "🍥"
 subtitle = "오늘보다 나은 내일"
+# compact = true
 
 [sidebar.avatar]
-enabled = true
+enabled = false
 local = true
 src = "img/avatar.jpeg"
 
 [article]
 math = false
 readingTime = true
+toc = true
 
 [article.license]
 enabled = true
