@@ -17,3 +17,6 @@ disqusShortname = "hugo-theme-stack"
 
 # google analytics
 googleAnalytics = "G-QCKZ7SFGNM"
+
+# robots.txt
+enableRobotsTXT = true
