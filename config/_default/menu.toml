@@ -12,9 +12,19 @@
 identifier = "github"
 name = "GitHub"
 url = "https://github.com/Alfred0123"
+weight = 10
 
 [social.params]
 icon = "brand-github"
+
+[[social]]
+identifier = "bmc"
+name = "Bmc"
+url = "https://www.buymeacoffee.com/nanafa"
+weight = 100
+
+[social.params]
+icon = "brand-bmc"
 
 # [[social]]
 # identifier = "twitter"
