@@ -17,6 +17,11 @@ keywords: ["hugo", "blog"] # metadata 에 keywords 추가
 # slug: "test" # 이거로 넣으면 url 값 변경 / eg. /etc/blog -> /etc/test
 ---
 
+개발일을 하게되면 기록을 할 일이 정말 많다. 많은 툴들을 이용해서 기록을 해보았지만, 많은 기록들이 유실되었고, 많은 기록들이 정리가 제대로 되어있지 않아
+다시 사용하기 어려웠다.</br>
+그럼, 이런 기록들을 어떻게 하면 잘 보관할 수 있고, 잘 정리할 수 있을까를 고민하던중 블로그를 만들어 보면 어떨까라는 생각을 하게 되었다.
+블로그를 만들면 우선 SEO 활성화를 위해서
+
 ## hugo 란
 
 [공식문서](https://gohugo.io/documentation/)
@@ -24,3 +29,5 @@ keywords: ["hugo", "blog"] # metadata 에 keywords 추가
 ## theme
 
 ## google analytics
+
+## buy me a coffee
