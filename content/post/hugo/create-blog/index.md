@@ -2,7 +2,7 @@
 author: "nanafa"
 title: "블로그 제작"
 date: "2022-12-08"
-# draft: true # draft / 보이지 않게 설정
+draft: true # draft / 보이지 않게 설정
 # weight: 10 # 숫자가 낮을수록 우선순위 높음
 # publishDate: "2022-12-09" # 공개 날짜 지정
 # lastmod: "2022-12-08 11:00:00+09:00" # last modify
