@@ -2,7 +2,7 @@
 author: "nanafa"
 title: "블로그 제작"
 date: "2022-12-08"
-draft: true # draft / 보이지 않게 설정
+# draft: true # draft / 보이지 않게 설정
 # weight: 10 # 숫자가 낮을수록 우선순위 높음
 # publishDate: "2022-12-09" # 공개 날짜 지정
 # lastmod: "2022-12-08 11:00:00+09:00" # last modify
@@ -31,3 +31,16 @@ keywords: ["hugo", "blog"] # metadata 에 keywords 추가
 ## google analytics
 
 ## buy me a coffee
+
+## seo 설정
+
+### sitemap
+
+[공식문서](https://gohugo.io/templates/sitemap-template/)
+
+### 네이버, 다음, 구글 등록
+
+[naver web master tool](https://searchadvisor.naver.com/)
+
+[daum webmaster tool](https://webmaster.daum.net/)
+robots.txt 에 태그 등록하라고 하는데, layouts/robots.txt 에 기입하면 됨
