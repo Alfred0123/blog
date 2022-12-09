@@ -31,3 +31,20 @@ keywords: ["hugo", "blog"] # metadata 에 keywords 추가
 ## google analytics
 
 ## buy me a coffee
+
+## seo 설정
+
+## github pages custom domain
+
+### sitemap
+
+[공식문서](https://gohugo.io/templates/sitemap-template/)
+
+### 네이버, 다음, 구글 등록
+
+[naver web master tool](https://searchadvisor.naver.com/)
+
+[daum webmaster tool](https://webmaster.daum.net/)
+robots.txt 에 태그 등록하라고 하는데, layouts/robots.txt 에 기입하면 됨
+
+[google search console](https://search.google.com/search-console/about)
