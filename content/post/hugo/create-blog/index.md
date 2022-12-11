@@ -1,13 +1,13 @@
 ---
 author: "nanafa"
-title: "블로그 제작"
+title: "Hugo 개인 블로그 제작기"
 date: "2022-12-08"
 draft: true # draft / 보이지 않게 설정
 # weight: 10 # 숫자가 낮을수록 우선순위 높음
 # publishDate: "2022-12-09" # 공개 날짜 지정
 # lastmod: "2022-12-08 11:00:00+09:00" # last modify
 # expiryDate: "2022-12-06" # 만료일 설정
-description: "hugo 를 이용해서 블로그 제작"
+description: "Hugo 로 블로그를 만들고, 기본적인 세팅을 해보자"
 tags: ["hugo", "blog"]
 categories: ["etc"]
 series: ["hugo_blog"] # metadata 에 seeAlso 추가
@@ -50,7 +50,94 @@ Hugo 를 통해서 블로그를 만들때, 블로그의 기본적인 테마를 �
 
 ## Hugo 세팅
 
-## theme
+### MacOS 에 Hugo 설치
+
+로컬 환경에서 Hugo 를 돌려볼 수 있도록 Hugo 를 인스톨 해준다.
+
+```zsh
+brew install hugo
+```
+
+### 테마 설치
+
+기본적인 테마는 [**공식 사이트**](https://themes.gohugo.io/)에서 확인이 가능하다. 그리고 공식문서에는 git submodule 을 사용하여 테마를 적용시키는 방식으로 소개시켜 주지만, 개인적으로 submodule 을 그리 좋아하지 않고, 편하게 커스텀 하기 위해서 리포지터리를 클론해서 사용했다.
+
+[**사용한 테마 리포지터리**](https://github.com/CaiJimmy/hugo-theme-stack-starter)
+
+[**데모 사이트**](https://dev.stack.jimmycai.com/)
+
+```zsh
+# 블로그를 만들 디렉토리에서
+git clone 'https://github.com/CaiJimmy/hugo-theme-stack' .
+```
+
+이제 해당 디렉토리로 접근해서 `hugo server` 를 터미널에 입력하고, 브라우저를 켜서 `localhost:1313` 으로 접근해보면 기본적인 블로그가 뜨는것을 확인 할 수 있다.
+
+데모 사이트와 동일하게 돌려보고 싶다면 `./exampleSite` 에 있는 `content` 폴더와 `config.yaml` 파일을 루트 폴더에 붙여넣고 돌리면 된다.
+`content/post` 폴더에 글을 작성하면 블로그 페이지에서 새 글이 보이는것을 확인 할 수 있다.
+
+### 커스텀 세팅
+
+#### Configuration
+
+`config.yaml` 을 그대로 사용해도 좋지만, [**configuration 관련 공식문서**](https://gohugo.io/getting-started/configuration/)를 확인해보면, 폴더를 이용해 좀더 깔끔하게 정리하는 방법이 있으니 이 방식을 사용해 보는것을 추천한다.
+
+좀더 자세한 세팅값은 [**nanafa's blog git repository**](https://github.com/Alfred0123/blog) 에서 `config/_default` 의 값을 확인해 보도록 하자.
+
+#### Shortcodes
+
+마크다운은 분명 좋은 포맷이지만 가끔 부족함을 느낄때가 있다. Hugo 에서는 이런때를 위해 shortcodes 라는 방식으로 커스텀 포맷을 사용할 수 있게 해준다.
+
+예제로 이를 이용해서 마크다운에서 접고 펼칠수 있는 스니펫을 만들어보자.
+
+```html
+<!-- ./layouts/shortcodes/details.html -->
+{{ $_hugo_config := `{ "version": 1 }` }}
+<details>
+  <summary class="detail-title" style="font-weight: bold">
+    {{- if (.Get "summary")}} {{- .Get "summary" -}} {{- else}} open / close
+    {{end}}
+  </summary>
+  {{ .Inner | markdownify }}
+</details>
+```
+
+위의 파일을 생성후에 `content/post` 에 글을 작성할때 아래와 같이 작성하면 된다.
+
+```markdown
+<!-- '{{' 와 <details> 사이에 공백을 제거하고 사용하면 된다. -->
+
+{{ <details summary="This is the summary text">}}
+Your markdown!
+{{ </details>}}
+```
+
+[**Hugo shortcodes 관련문서**](https://gohugo.io/content-management/shortcodes/)
+
+#### CSS 변경
+
+CSS 는 변경은 `./assets/scss/custom.scss` 파일을 변경해서 커스텀할 수 있다.
+
+예제로 google 에서 무료로 제공해주는 `Noto Sans KR` 폰트로 변경해보자
+
+```scss
+// ./assets/scss/custom.scss
+:root {
+  word-spacing: 2px;
+  // 해당 테마에서 사용하는 font-family 전역변수를 덮어씌워준다.
+  --base-font-family: "Noto Sans KR", sans-serif;
+}
+```
+
+`./layouts/partials/head/custom.html` 에 구글 폰트를 가져오는 link 태그를 추가해준다.
+
+```html
+<!-- google noto sans kr font -->
+<link
+  href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
+  rel="stylesheet"
+/>
+```
 
 ## google analytics
 
