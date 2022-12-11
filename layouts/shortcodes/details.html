@@ -1,11 +1,8 @@
-{{ .Scratch.Set "lastp" (sub (.Params | len) 1) }}
-<details {{ if .Get 0 | eq "open"}} open {{ end }}>
-    <summary
-      class="detail-title"
-      style="font-weight: bold;"
-    >
-      {{- if (.Get "summary")}} {{- .Get "summary" -}} {{- else}} 접기 /
-      펼치기 {{end}}
-    </summary>
-    {{ .Inner | markdownify }}
+{{ $_hugo_config := `{ "version": 1 }` }}
+<details>
+  <summary class="detail-title" style="font-weight: bold">
+    {{- if (.Get "summary")}} {{- .Get "summary" -}} {{- else}} 접기 / 펼치기
+    {{end}}
+  </summary>
+  {{ .Inner | markdownify }}
 </details>
