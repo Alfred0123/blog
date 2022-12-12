@@ -48,7 +48,7 @@ Hugo 를 통해서 블로그를 만들때, 블로그의 기본적인 테마를 �
 
 또한 [**공식문서**](https://gohugo.io/documentation/)에 설명이 자세히 나와있는 점도 꽤 마음에 들었다.
 
-## Hugo 세팅
+## Hugo 기본 세팅
 
 ### MacOS 에 Hugo 설치
 
@@ -139,19 +139,21 @@ CSS 는 변경은 `./assets/scss/custom.scss` 파일을 변경해서 커스텀�
 />
 ```
 
-## google analytics
+## 배포 세팅
 
-## buy me a coffee
+## Google Analytics 세팅
 
-## seo 설정
+## Buy me a coffee 세팅
 
-## github pages custom domain
+## 검색엔진 최적화(SEO) 관련 세팅
+
+### robots.txt
 
 ### sitemap
 
 [공식문서](https://gohugo.io/templates/sitemap-template/)
 
-### 네이버, 다음, 구글 등록
+### 검색엔진에 등록
 
 [naver web master tool](https://searchadvisor.naver.com/)
 
@@ -159,7 +161,3 @@ CSS 는 변경은 `./assets/scss/custom.scss` 파일을 변경해서 커스텀�
 robots.txt 에 태그 등록하라고 하는데, layouts/robots.txt 에 기입하면 됨
 
 [google search console](https://search.google.com/search-console/about)
-
-{{<details summary="This is the summary text">}}
-Your markdown!
-{{</details>}}
