@@ -1,12 +1,12 @@
 ---
 author: "nanafa"
-title: "Hugo 개인 블로그 제작기 - 1"
+title: "Hugo 개인 블로그 제작기"
 date: "2022-12-13"
-draft: true # draft / 보이지 않게 설정
-# weight: 10 # 숫자가 낮을수록 우선순위 높음
+# draft: true # draft / 보이지 않게 설정
+lastmod: "2022-12-13 19:00:00+09:00" # last modify
 # publishDate: "2022-12-09" # 공개 날짜 지정
-# lastmod: "2022-12-08 11:00:00+09:00" # last modify
 # expiryDate: "2022-12-06" # 만료일 설정
+# weight: 10 # 숫자가 낮을수록 우선순위 높음
 description: "Hugo 로 블로그 만들고, Github Pages 로 배포하기"
 tags: ["hugo", "blog", "github_pages"]
 categories: ["etc"]
@@ -153,6 +153,10 @@ CSS 는 변경은 `./assets/scss/custom.scss` 파일을 변경해서 커스텀�
 
 ### Github Pages 배포 세팅
 
+{{<highlight "warn">}}
+[username].github.io 이와같은 형식으로 github repository 를 생성하지 않으면, 저장소에 따라 URL 의 root path 값이 달라질 수 있기 때문에, robots.txt 와 sitemap.xml 이 정상동작 하지 않을 수 있습니다.
+{{</highlight>}}
+
 Github Pages 를 배포하는 방법은 매우 간단하다.
 
 Github Repository 에 코드가 올라가있다는 가정하에,
@@ -167,17 +171,50 @@ Github Repository 에 코드가 올라가있다는 가정하에,
 
 이렇게 하면, 메인 브랜치가 푸쉬 될 때마다 Github Actions 가 돌며 블로그가 새로 배포된다.
 
-### 커스텀 도메인 세팅
+## 커스텀 도메인 등록
 
-<!-- TODO. -->
+{{<highlight "info">}}
+커스텀 도메인 등록 작업은 필수는 아니며, 관심있는 사람은 적용해봐도 좋을듯 하다.
+{{</highlight>}}
+
+등록 방법은 다음과 같다.
+
+- DNS 서비스 세팅
+  - 호스팅영역에 레코드 추가 (eg. route53, cloud dns 등과 같은 DNS 서비스)
+    - 레코드 네임 / 원하는 도메인 or 서브도메인
+    - 레코드 유형 / CNAME
+    - 값 / `[username].github.io.`
+    - 레코드 생성시 ttl 값은 캐쉬 주기이니 잘 모른다면 60초 정도로 설정하도록 하자
+- Hugo file 추가
+  - Github 에서 pull 받았을때, `./CNAME` 이란 파일이 생성되어 있다면 PASS
+  - 생성이 안되어 있다면 생성
+    - 값으로 레코드 네임을 입력하고 push 해준다.
+- Github workflows 수정
+  - `.github/workflows/hugo.yml`
+    ```yml
+    #
+    run: |
+      hugo \
+        --minify \
+        --baseURL "${{ steps.pages.outputs.base_url }}/"
+      # 이부분 추가 / CNAME file 을 배포되는 폴더에 복사
+      cp CNAME ./public
+    ```
+
+이렇게 세팅하고 배포가 새로되었을때, 커스텀 주소가 반영이 안되어 있다면, 아래의 동작을 추가로 해보도록 한다. 배포가 새로 완료되었는지는 Github Repo Actions 탭에서 확인이 가능하다.
+
+{{<details summary="배포가 정상적으로 되지 않았다면 다음과 같이 해보자">}}
+
+- Github Pages 세팅
+  - 배포하려는 저장소 사이트 진입
+  - `Settings` 탭 클릭
+  - `Pages` 탭 클릭
+  - `Custom domain` - DNS 서비스 세팅시 입력했던 레코드 네임 - check 가 성공할때까지 기다린다.
+    {{</details>}}
 
 ## 검색엔진에 사이트 등록
 
 사이트를 검색엔진에 등록시키지 않아도 언젠가는 등록되겠지만, 검색엔진에 내 사이트에 대한 정보를 등록한다면 좀더 상위 노출될 가능성이 높을 것이다. 때문에 혼자서 이용하려는 사이트가 아니라면 검색엔진에 등록을 해주도록 하자.
-
-{{<highlight "warn">}}
-주의!
-{{</highlight>}}
 
 ### robots.txt
 
@@ -201,23 +238,56 @@ enableRobotsTXT = true
 
 ### 검색엔진에 등록
 
-#### naver
+#### naver 검색엔진에 등록 방법
 
-[naver web master tool](https://searchadvisor.naver.com/) 에 등록하기 위해서
+- [naver web master tool](https://searchadvisor.naver.com/) 사이트에 접속
+  - `웹마스터 도구` 버튼 클릭
+  - `사이트 등록` 원하는 url 입력
+  - 옵션에서 `HTML 태그` 로 선택하고 여기에 써져 있는 meta tag 를 `./layouts/partials/head/custom.html` 에 입력해준후 재배포(master push) 해준다.
+  - 배포가 완료되면(보통 3~5분 안으로 된다), `소유확인` 버튼을 클릭하면 된다.
 
-#### daum
+#### daum 검색엔진에 등록 방법
 
-#### google
+- [daum webmaster tool](https://webmaster.daum.net/) 사이트 접속
+  - PIN코드 발급받기
+    - url 과 PIN코드(암호) 를 입력한후에 확인
+  - 생성된 txt 를 `./layouts/robots.txt` 의 가장 하단에 추가 후 재배포(master push) 해준다.
+  - 배포가 완료되면(보통 3~5분 안으로 된다), `인증 시작하기` 버튼 클릭.
 
-[naver web master tool](https://searchadvisor.naver.com/)
+#### google 검색엔진에 등록 방법
 
-[daum webmaster tool](https://webmaster.daum.net/)
-robots.txt 에 태그 등록하라고 하는데, layouts/robots.txt 에 기입하면 됨
-
-[google search console](https://search.google.com/search-console/about)
+- [google search console](https://search.google.com/search-console/about) 사이트 접속
+  - URL prefix 에 url 입력
+  - 다운 받으라는 html 을 다운받아 프로젝트 root 폴더에 저장
+  - Github workflows 수정
+  - `.github/workflows/hugo.yml`
+    ```yml
+    #
+    run: |
+      hugo \
+        --minify \
+        --baseURL "${{ steps.pages.outputs.base_url }}/"
+      cp CNAME ./public
+      # 이부분 추가 / CNAME file 을 배포되는 폴더에 복사
+      cp [filename].html ./public
+    ```
+  - 재배포(master push) 해준다.
+  - 배포가 완료되면(보통 3~5분 안으로 된다), `VERIFY` 버튼 클릭.
+  - `Sitemaps` 탭 클릭
+  - sitemap url 을 적는 칸에, `https://[url]/sitemap.xml` 을 적고 제출
 
 ## ETC
 
 ## Google Analytics 세팅
 
-## Buy me a coffee 세팅
+[google analytics 사이트](https://analytics.google.com/) 에서 id 생성 및 속성 생성후 데이터 스트림을 생성, 측정 ID 가 생성된다(G-xxx 이런식으로 생김).
+
+생성된 id 를 `./config/_default/config.toml` or `./config.toml` 에 추가해준다(yaml 의 경우 = 대신 : 를 넣도록 한다.).
+
+이후 재 배포하면, 적용이 된것을 google analytics 사이트 보고서 -> 실시간 에서 확인 가능하다.
+
+```toml
+googleAnalytics = "G-xxx"
+```
+
+<!-- ## Buy me a coffee 세팅 -->
