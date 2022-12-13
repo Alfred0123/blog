@@ -1,0 +1,65 @@
+{{ $color := .Get 0 | safeCSS }}
+<!-- <code style="background-color: {{ $color }};">
+  <span> {{ .Inner | markdownify }} </span>
+</code> -->
+{{ if eq $color "danger"}}
+<span
+  style="
+    background-color: rgba(164, 0, 0, 0.4);
+    padding: 0 4px;
+    border-radius: 2px;
+  "
+>
+  {{ .Inner | markdownify }}
+</span>
+{{ else if eq $color "info"}}
+<span
+  style="
+    background-color: rgba(52, 94, 152, 0.4);
+    padding: 0 4px;
+    border-radius: 2px;
+  "
+>
+  {{ .Inner | markdownify }}
+</span>
+{{ else if eq $color "success"}}
+<span
+  style="
+    background-color: rgba(50, 129, 100, 0.4);
+    padding: 0 4px;
+    border-radius: 2px;
+  "
+>
+  {{ .Inner | markdownify }}
+</span>
+{{ else if eq $color "warn"}}
+<span
+  style="
+    background-color: rgba(230, 145, 56, 0.4);
+    padding: 0 4px;
+    border-radius: 2px;
+  "
+>
+  {{ .Inner | markdownify }}
+</span>
+{{ else if eq $color "highlight"}}
+<span
+  style="
+    background-color: rgba(255, 217, 102, 0.4);
+    padding: 0 4px;
+    border-radius: 2px;
+  "
+>
+  {{ .Inner | markdownify }}
+</span>
+{{ else }}
+<span
+  style="
+    background-color: {{ $color }};
+    padding: 0 4px;
+    border-radius: 2px;
+  "
+>
+  {{ .Inner | markdownify }}
+</span>
+{{ end }}

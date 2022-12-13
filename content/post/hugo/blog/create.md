@@ -1,17 +1,17 @@
 ---
 author: "nanafa"
-title: "Hugo 개인 블로그 제작기"
-date: "2022-12-08"
+title: "Hugo 개인 블로그 제작기 - 1"
+date: "2022-12-13"
 draft: true # draft / 보이지 않게 설정
 # weight: 10 # 숫자가 낮을수록 우선순위 높음
 # publishDate: "2022-12-09" # 공개 날짜 지정
 # lastmod: "2022-12-08 11:00:00+09:00" # last modify
 # expiryDate: "2022-12-06" # 만료일 설정
-description: "Hugo 로 블로그를 만들고, 기본적인 세팅을 해보자"
-tags: ["hugo", "blog"]
+description: "Hugo 로 블로그 만들고, Github Pages 로 배포하기"
+tags: ["hugo", "blog", "github_pages"]
 categories: ["etc"]
 series: ["hugo_blog"] # metadata 에 seeAlso 추가
-keywords: ["hugo", "blog"] # metadata 에 keywords 추가
+keywords: ["hugo", "blog", "github_pages"] # metadata 에 keywords 추가
 # image: "default.jpg"
 # aliases: ["hugo-blog"] # path 추가 / eg. eg. /etc/blog -> /etc/hugo-blog
 # slug: "test" # 이거로 넣으면 url 값 변경 / eg. /etc/blog -> /etc/test
@@ -167,15 +167,47 @@ Github Repository 에 코드가 올라가있다는 가정하에,
 
 이렇게 하면, 메인 브랜치가 푸쉬 될 때마다 Github Actions 가 돌며 블로그가 새로 배포된다.
 
-## 검색엔진 최적화(SEO) 관련 세팅
+### 커스텀 도메인 세팅
+
+<!-- TODO. -->
+
+## 검색엔진에 사이트 등록
+
+사이트를 검색엔진에 등록시키지 않아도 언젠가는 등록되겠지만, 검색엔진에 내 사이트에 대한 정보를 등록한다면 좀더 상위 노출될 가능성이 높을 것이다. 때문에 혼자서 이용하려는 사이트가 아니라면 검색엔진에 등록을 해주도록 하자.
+
+{{<highlight "warn">}}
+주의!
+{{</highlight>}}
 
 ### robots.txt
 
+검색엔진이 사이트 정보를 가져갈때의 규칙을 명시한 파일이다.
+
+`./layouts/robots.txt` 에 파일을 생성하고 아래와 같은 내용을 넣어주도록 하자.
+
+```txt
+User-agent: *
+```
+
+`./config/_default/config.toml` or `./config.toml` 에 아래와 같은 값을 추가해준다. (yaml 의 경우 = 대신 : 를 넣도록 한다.)
+
+```toml
+enableRobotsTXT = true
+```
+
 ### sitemap
 
-[공식문서](https://gohugo.io/templates/sitemap-template/)
+기본적으로 사이트맵이 `./public/sitemap.xml` 생성되므로, 잘 생성되는지만 확인해보면 된다.
 
 ### 검색엔진에 등록
+
+#### naver
+
+[naver web master tool](https://searchadvisor.naver.com/) 에 등록하기 위해서
+
+#### daum
+
+#### google
 
 [naver web master tool](https://searchadvisor.naver.com/)
 
