@@ -7,6 +7,7 @@ lastmod: "2022-12-13 19:00:00+09:00" # last modify
 # publishDate: "2022-12-09" # 공개 날짜 지정
 # expiryDate: "2022-12-06" # 만료일 설정
 # weight: 10 # 숫자가 낮을수록 우선순위 높음
+summary: "Hugo 로 블로그 만들고, Github Pages 로 배포하기" # rss.xml 에서 사용되는 summary 에 담길내용
 description: "Hugo 로 블로그 만들고, Github Pages 로 배포하기"
 tags: ["hugo", "blog", "github_pages"]
 categories: ["etc"]
